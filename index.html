@@ -270,7 +270,7 @@ function enviarParaGoogleSheets() {
         dados["NECESSARIO_OUTRO_RECURSO"] = document.getElementById('descricaoRecurso').value;
     }
 
-    fetch("SUA_URL_DO_SCRIPT", {
+    fetch("https://docs.google.com/spreadsheets/d/1tM7osGGuuU4maIrZMnjc9r6JCsswUDeRj5keydcmb_o/edit?gid=0#gid=0", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)
