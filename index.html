@@ -242,6 +242,47 @@
             const url = `https://wa.me/?text=${mensagem}`;
             window.open(url, '_blank');
         }
+// Código Google Apps Script para armazenar os dados no Google Sheets
+function enviarParaGoogleSheets() {
+    let dados = {
+        "LEAD": document.getElementById('lead').value,
+        "DATA": document.getElementById('data').value,
+        "OT/ANE": document.getElementById('ot_ane').value,
+        "BA": document.getElementById('ba').value,
+        "SGD": document.getElementById('sgd').value,
+        "INC": document.getElementById('inc').value,
+        "TRAFO": document.getElementById('traf').value,
+        "ESTRUTURA": document.getElementById('estrut').value,
+        "ALIM": document.getElementById('alim').value
+    };
+
+    // Verifica se os campos opcionais foram preenchidos
+    if (!document.getElementById('servico').classList.contains('hidden')) {
+        dados["SERVICO_REALIZADO"] = document.getElementById('descricaoServico').value;
+    }
+    if (!document.getElementById('material').classList.contains('hidden')) {
+        dados["MATERIAL_UTILIZADO"] = document.getElementById('descricaoMaterial').value;
+    }
+    if (!document.getElementById('sucata').classList.contains('hidden')) {
+        dados["DEVOLUCAO_SUCATA_GERADA"] = document.getElementById('descricaoSucata').value;
+    }
+    if (!document.getElementById('recurso').classList.contains('hidden')) {
+        dados["NECESSARIO_OUTRO_RECURSO"] = document.getElementById('descricaoRecurso').value;
+    }
+
+    fetch("SUA_URL_DO_SCRIPT", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert("Dados enviados para o Google Sheets com sucesso!");
+        enviarWhatsApp();
+    })
+    .catch(error => alert("Erro ao enviar para o Google Sheets: " + error));
+}
+
     </script>
 </body>
 </html>
